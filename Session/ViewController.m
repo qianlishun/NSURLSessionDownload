@@ -11,12 +11,9 @@
 #import "ProcessView.h"
 @interface ViewController ()
 
-
 @property (nonatomic,strong) ProcessView *processView;
 
-
 @end
-
 
 #define kURLString @"http://sw.bos.baidu.com/sw-search-sp/software/bfe69c1ecac/QQ_4.2.1_mac.dmg"
 
@@ -72,7 +69,6 @@
 
     [self.view addSubview:self.processView];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -178,7 +178,6 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
             self.processBlock(progress);
         });
     }
-
 }
 
 //续传
