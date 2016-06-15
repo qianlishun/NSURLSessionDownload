@@ -7,15 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0020291D10DBB300CED3D0 /* ProcessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0020281D10DBB300CED3D0 /* ProcessView.m */; settings = {ASSET_TAGS = (); }; };
 		3E69861B1D0FF6E900B0A25C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E69861A1D0FF6E900B0A25C /* main.m */; };
 		3E69861E1D0FF6E900B0A25C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E69861D1D0FF6E900B0A25C /* AppDelegate.m */; };
 		3E6986211D0FF6EA00B0A25C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E6986201D0FF6EA00B0A25C /* ViewController.m */; };
 		3E6986241D0FF6EA00B0A25C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E6986221D0FF6EA00B0A25C /* Main.storyboard */; };
 		3E6986261D0FF6EA00B0A25C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6986251D0FF6EA00B0A25C /* Assets.xcassets */; };
 		3E6986291D0FF6EA00B0A25C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E6986271D0FF6EA00B0A25C /* LaunchScreen.storyboard */; };
+		3E69863A1D102E8400B0A25C /* DownloaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E6986391D102E8400B0A25C /* DownloaderManager.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E0020271D10DBB300CED3D0 /* ProcessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessView.h; sourceTree = "<group>"; };
+		3E0020281D10DBB300CED3D0 /* ProcessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessView.m; sourceTree = "<group>"; };
 		3E6986161D0FF6E900B0A25C /* Session.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Session.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E69861A1D0FF6E900B0A25C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3E69861C1D0FF6E900B0A25C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -26,6 +30,8 @@
 		3E6986251D0FF6EA00B0A25C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E6986281D0FF6EA00B0A25C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E69862A1D0FF6EA00B0A25C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E6986381D102E8400B0A25C /* DownloaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloaderManager.h; sourceTree = "<group>"; };
+		3E6986391D102E8400B0A25C /* DownloaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloaderManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,10 @@
 				3E69861D1D0FF6E900B0A25C /* AppDelegate.m */,
 				3E69861F1D0FF6EA00B0A25C /* ViewController.h */,
 				3E6986201D0FF6EA00B0A25C /* ViewController.m */,
+				3E6986381D102E8400B0A25C /* DownloaderManager.h */,
+				3E6986391D102E8400B0A25C /* DownloaderManager.m */,
+				3E0020271D10DBB300CED3D0 /* ProcessView.h */,
+				3E0020281D10DBB300CED3D0 /* ProcessView.m */,
 				3E6986221D0FF6EA00B0A25C /* Main.storyboard */,
 				3E6986251D0FF6EA00B0A25C /* Assets.xcassets */,
 				3E6986271D0FF6EA00B0A25C /* LaunchScreen.storyboard */,
@@ -149,6 +159,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E0020291D10DBB300CED3D0 /* ProcessView.m in Sources */,
+				3E69863A1D102E8400B0A25C /* DownloaderManager.m in Sources */,
 				3E6986211D0FF6EA00B0A25C /* ViewController.m in Sources */,
 				3E69861E1D0FF6E900B0A25C /* AppDelegate.m in Sources */,
 				3E69861B1D0FF6E900B0A25C /* main.m in Sources */,
@@ -300,6 +312,7 @@
 				3E69862F1D0FF6EA00B0A25C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
