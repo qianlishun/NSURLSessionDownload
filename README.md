@@ -1,0 +1,2 @@
+# NSURLSessionDownload
+NSURLSession DownloaderManager
