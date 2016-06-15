@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface DownloaderManager : NSObject
+
 + (instancetype)sharedManager;
 
 - (void)download:(NSString *)urlString successBlock:(void(^)(NSString *path))successBlock processBlock:(void(^)(float process))processBlock errorBlock:(void(^)(NSError *error))errorBlock;
 
-- (void)pauseDownload;
+- (void)pauseDownload:(NSString *)urlString;
 
 @end

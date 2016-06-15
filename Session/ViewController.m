@@ -11,18 +11,40 @@
 #import "ProcessView.h"
 @interface ViewController ()
 
+
 @property (nonatomic,strong) ProcessView *processView;
 
 
 @end
 
+
+#define kURLString @"http://sw.bos.baidu.com/sw-search-sp/software/bfe69c1ecac/QQ_4.2.1_mac.dmg"
+
 @implementation ViewController
 
+- (void)beginDownload:(UIButton *)sender{
+
+    //@"http://sw.bos.baidu.com/sw-search-sp/software/bfe69c1ecac/QQ_4.2.1_mac.dmg"
+
+    [[DownloaderManager sharedManager]download:kURLString  successBlock:^(NSString *path) {
+        NSLog(@"下载完成%@",path);
+
+    }  processBlock:^(float process) {
+
+        self.processView.process = process;
+
+    }errorBlock:^(NSError *error) {
+
+        NSLog(@"下载出错 :%@",error);
+    }];
+}
+- (void)pauseDownload:(UIButton *)sender{
+    [[DownloaderManager sharedManager]pauseDownload:kURLString];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-
 
     UIButton *btnBegin = [[UIButton alloc]initWithFrame:CGRectMake(30, 50, 0, 0)];
     [btnBegin setTitle:@"开始下载" forState:UIControlStateNormal];
@@ -50,25 +72,6 @@
 
     [self.view addSubview:self.processView];
 }
-
-- (void)beginDownload:(UIButton *)sender{
-    NSLog(@"开始下载");
-    //@"http://sw.bos.baidu.com/sw-search-sp/software/bfe69c1ecac/QQ_4.2.1_mac.dmg"
-    [[DownloaderManager sharedManager]download:@"http://sw.bos.baidu.com/sw-search-sp/software/bfe69c1ecac/QQ_4.2.1_mac.dmg" successBlock:^(NSString *path) {
-        NSLog(@"下载完成%@",path);
-    } processBlock:^(float process) {
-        self.processView.process = process;
-//        NSLog(@"下载进度 %.02f %@",process,[NSThread currentThread]);
-
-    } errorBlock:^(NSError *error) {
-        NSLog(@"下载出错 :%@",error);
-    }];
-}
-- (void)pauseDownload:(UIButton *)sender{
-    [[DownloaderManager sharedManager]pauseDownload];
-}
-
-
 
 
 - (void)didReceiveMemoryWarning {

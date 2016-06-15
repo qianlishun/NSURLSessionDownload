@@ -9,7 +9,6 @@
 
 #import "DownloaderManager.h"
 
-
 @interface DownloaderManager () <NSURLSessionDataDelegate>
 @property (nonatomic,strong)NSURLSession *session;
 @property (nonatomic,strong)NSURLSessionDownloadTask *task;
@@ -60,16 +59,25 @@
 
 #pragma mark - 控制下载的状态
 
--(void)pauseDownload{
+-(void)pauseDownload:(NSString *)urlString{
 
-        [self.task cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
-            self.resumeData = resumeData;
-            NSLog(@"暂停");
-            self.task = nil;
-            [self.resumeData writeToFile:self.resumePath atomically:YES];
-        }];
+    if(!self.downloaderCache[urlString]){
+        NSLog(@"当前无下载任务,不要暂停了");
+        return;
+    }
+
+    [self.task cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
+        self.resumeData = resumeData;
+        self.task = nil;
+        [self.resumeData writeToFile:self.resumePath atomically:YES];
+
+        NSLog(@"已经暂停,resume数据保存在%@",self.resumePath);
+
+    }];
+
     [self.downloaderCache removeObjectForKey:self.urlString];
 }
+
 - (void)resumeDownload:(NSString *)urlString{
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -87,6 +95,7 @@
     [self.downloaderCache setObject:self.task forKeyedSubscript:urlString];
 
     [self.task resume];
+
     self.resumeData = nil;
 }
 
@@ -98,6 +107,8 @@
         [self resumeDownload:urlString];
         return;
     }
+
+    NSLog(@"开始下载...");
 
     NSURL *url = [NSURL URLWithString:urlString];
 
@@ -118,7 +129,7 @@
         NSLog(@"正在拼命的下载..");
         return;
     }
-    NSLog(@"_________");
+
     self.resumePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"resume.plist"];
 
     [self download:urlString];
@@ -140,15 +151,17 @@ didFinishDownloadingToURL:(NSURL *)location {
     // 将临时文件剪切或者复制Caches文件夹
     NSFileManager *mgr = [NSFileManager defaultManager];
 
-    [mgr moveItemAtPath:location.path toPath:filePath error:nil];
+    NSError *error = nil;
 
-    [mgr removeItemAtPath:self.resumePath error:nil];
+    [mgr moveItemAtPath:location.path toPath:filePath error:&error];
 
-    if (self.successBlock) {
+    if (self.successBlock && !error) {
         [self.downloaderCache removeObjectForKey:self.urlString];
         self.successBlock(filePath);
+    }else{
+        self.errorBlock(error);
     }
-
+    [mgr removeItemAtPath:self.resumePath error:nil];
 }
 
 //下载进度
@@ -157,13 +170,14 @@ didFinishDownloadingToURL:(NSURL *)location {
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
-    float progress = totalBytesWritten*1.0 / totalBytesExpectedToWrite;
-
     if (self.processBlock) {
+
+        float progress = totalBytesWritten*1.0 / totalBytesExpectedToWrite;
+
         dispatch_async(dispatch_get_main_queue(), ^{
             self.processBlock(progress);
         });
-   }
+    }
 
 }
 
@@ -174,12 +188,20 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 
 }
 
-- (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error{
-    if (self.errorBlock) {
-        [self.downloaderCache removeObjectForKey:self.urlString];
-        self.errorBlock(error);
-    }
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error{
 
+    if (error) {
+        if (self.errorBlock) {
+
+            if (error.code == -999) {
+                return;
+            }
+            
+            self.errorBlock(error);
+        }
+        
+        [self.downloaderCache removeObjectForKey:self.urlString];
+    }
 }
 
 @end
