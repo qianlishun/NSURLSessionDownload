@@ -187,6 +187,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 
 }
 
+//错误处理
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error{
 
     if (error) {
